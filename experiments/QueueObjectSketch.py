@@ -1,4 +1,4 @@
-# Object heirarchy sketch for QueueServo class
+# Object hierarchy sketch for QueueServo class
 
 from servo import Servo, servo2040
 import easingfunctions as easing
@@ -7,7 +7,7 @@ from object_sketch import *
 
 # Subclass of EasedServo
 class QueueServo():
-     
+
     def __init__(self, pin, angle=90):
         """Basic constructor. Creates a QueueServo object and calls the EasedServo class."""
         self._servo = EasedServo(pin)
@@ -22,9 +22,9 @@ class QueueServo():
         if self._servo.proportion_complete>= 1:
             self._servo._isMoving = False
 
-   
+
     def queue_animation_sequence(self, animation_type, start_angle, end_angle, speed):
-        
+
         if animation_type == 'waves':
             print("called Queue Animation Sequence")
             # Calculate the number of steps based on the speed
@@ -43,14 +43,14 @@ class QueueServo():
 
                 # Queue the angle with the calculated easing function and speed
                 self.queue_ease_to(angle, speed, easing_function)
-                
+
 
         else:
             # Handle other animation types here
             pass
 
 
-        
+
 if __name__ == '__main__':
 
     servo_gulls = QueueServo(servo2040.SERVO_1)
@@ -72,8 +72,8 @@ if __name__ == '__main__':
     # while servo_waves._servo._isMoving:
     #     servo_waves.update()
     #     time.sleep(0.01)
-    
-    
+
+
     # time.sleep_ms(2000)
     # servo_life_boats = QueueServo(servo2040.SERVO_1)
     # servo_life_boats.queue_ease_to(-90, 3000, easing.easeOutSine)
@@ -81,5 +81,4 @@ if __name__ == '__main__':
     # while servo_life_boats._servo._isMoving:
     #     servo_life_boats.update()
     #     time.sleep(0.01)
-    
-    
+

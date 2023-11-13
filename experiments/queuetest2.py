@@ -1,13 +1,16 @@
 # Brazen cheat from ChatGPT 3.5
 from collections import deque
 
+
 class SomeObject:
     def some_method(self, param):
         print(f"Some method called with parameter: {param}")
 
+
 class AnotherObject:
     def another_method(self, param):
         print(f"Another method called with parameter: {param}")
+
 
 # Create a deque to store object-reference-and-method-parameter pairs
 my_queue = deque()
@@ -46,4 +49,3 @@ while my_queue:
 
 # method, param_angle, param_time, param_easing = _self.queue.popleft()
 # method(param_angle, param_time, param_easing)
-

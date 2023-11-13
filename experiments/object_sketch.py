@@ -1,11 +1,12 @@
-# Object heirarchy sketch for EasedServo class
+# Object hierarchy sketch for EasedServo class
 
 from servo import Servo, servo2040
 import easingfunctions as easing
 import time
 
+
 # Subclass of Servo
-class EasedServo():
+class EasedServo:
     """Subclass of Servo object to support easing functions."""
 
     # TODO: This should probably inherit from Servo rather than wrap it, but I'm rusty on Python syntax.
@@ -27,7 +28,16 @@ class EasedServo():
         self._base_time = time.ticks_ms()
         self._duration = duration
         self._isMoving = True
-        print (">>> Starting move to: " + str(angle) + " in " + str(duration) + "ms" +" using " + easing_function.__name__ + " easing.")
+        print(
+            ">>> Starting move to: "
+            + str(angle)
+            + " in "
+            + str(duration)
+            + "ms"
+            + " using "
+            + easing_function.__name__
+            + " easing."
+        )
         # I don't think we actually need to do anything in here, just set up the variables.
 
     def update(self):
@@ -36,7 +46,11 @@ class EasedServo():
         proportion_complete = (time.ticks_ms() - self._base_time) / self._duration
         # print("Proportion complete: " + str(proportion_complete))
         # Calculate the new angle
-        self.angle = self._easing_function(proportion_complete) * (self._target_angle - self._start_angle) + self._start_angle
+        self.angle = (
+            self._easing_function(proportion_complete)
+            * (self._target_angle - self._start_angle)
+            + self._start_angle
+        )
         # Set the servo position
         self._servo.value(self.angle)
         # Are we done?
@@ -45,7 +59,7 @@ class EasedServo():
 
 
 # Do if we're called directly
-if __name__ == '__main__':
+if __name__ == "__main__":
     # my_servo = EasedServo(2)
     my_servo = EasedServo(servo2040.SERVO_1)
 
@@ -63,4 +77,3 @@ if __name__ == '__main__':
         time.sleep(0.01)
 
     print("Done!")
-
