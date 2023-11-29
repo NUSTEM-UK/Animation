@@ -18,6 +18,8 @@ class EasedServo:
         self.angle = angle
         self._servo.value(angle)
         self._easing_function = easing.linear
+        self._isMoving=True
+    
 
     def ease_to(self, angle, duration, easing_function=easing.linear):
         """Sets the target angle and duration, and receives a function to use for easing."""

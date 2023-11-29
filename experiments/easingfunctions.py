@@ -96,7 +96,6 @@ def easeInExpo(t):
 
 
 def easeOutExpo(t):
-    print("called!")
     return -math.pow(2, -10 * t) + 1
 
 

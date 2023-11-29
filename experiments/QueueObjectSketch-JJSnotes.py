@@ -8,18 +8,18 @@ from collections import deque
 
 # Subclass of EasedServo
 class QueueServo():
-    # TODO: Should this be a subclass of EasedServo?
+    # TODO: Should this be a subclass of EasedServo? - Done
     def __init__(self, pin, angle=90):
         """Basic constructor. Creates a QueueServo object and calls the EasedServo class."""
         self._servo = EasedServo(pin)
         print("called QueueServo Constructor")
 
-        # TODO: Needs an instance of a queue container class
+        # TODO: Needs an instance of a queue container class - Done
         #       Look in collections? Dequeue? https://docs.micropython.org/en/latest/library/collections.html
         self._queue = deque()
 
-        # TODO: add home position (or should that be in EasedServo? -- no, probably here)
-        # TODO: Add flags for end-of-animation-sequence options:
+        # TODO: add home position (or should that be in EasedServo? -- no, probably here) - Done
+        # TODO: Add flags for end-of-animation-sequence options: - Done
         #       - Queue emptied, queue pause at end of sequence
         #       - Queue emptied, pause has happened, queue to home position
         #       - Queue emptied, pause has happened, gone home, so now detach servo to prevent jitter/buzz
@@ -34,7 +34,7 @@ class QueueServo():
 
     def update(self):
         self._servo.update()
-        # TODO: Check if this is duplicated?
+        # TODO: Check if this is duplicated? - Done
         if self._servo.proportion_complete > 1:
             self._servo._isMoving = False
         if self._servo._isMoving == False:
@@ -67,33 +67,6 @@ class QueueServo():
     def queue_wait_for(self, other_servo):
         """Queue a wait for another servo to signal us to restart."""
         pass
-
-
-
-    def queue_animation_sequence(self, animation_type, start_angle, end_angle, speed):
-
-        if animation_type == 'waves':
-            print("called Queue Animation Sequence")
-            # Calculate the number of steps based on the speed
-            num_steps = abs(end_angle - start_angle) // speed
-
-            # Define the easing function based on the animation type
-            if start_angle < end_angle:
-                easing_function = easing.easeInOutCubic
-            else:
-                easing_function = easing.easeInOutCubic
-
-            # Queue the animation steps
-            for step in range(num_steps):
-                # Calculate the current angle for this step
-                angle = start_angle + (end_angle - start_angle) * (step / num_steps)
-
-                # Queue the angle with the calculated easing function and speed
-                self.queue_ease_to(angle, speed, easing_function)
-
-        else:
-            # Handle other animation types here
-            pass
 
 
 if __name__ == '__main__':
