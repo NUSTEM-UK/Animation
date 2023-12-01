@@ -17,6 +17,10 @@ class EasedServo(Servo):
         super().__init__(pin)
         self.enable()
 
+        # Register ourselves with the ServoController singleton
+        self.controller = AnimationController.get_instance()
+        self.controller.register_servo(self)
+
         self.angle = angle
         self.value(angle)
         # Are we using underscores to indicate private variables?
@@ -81,14 +85,30 @@ class EasedServo(Servo):
 
 
 class AnimationController():
-    """Class to manage a collection of EasedServo objects."""
+    """Class to manage a collection of EasedServo objects.
+
+    Employed as a Singleton."""
+
+    _instance = None
 
     def __init__(self):
-        """Basic constructor. Creates an empty list of servos."""
+        """Basic constructor. Creates an empty list of servos.
+
+        Also checks to see if we've already created an instance of this class."""
+
+        if AnimationController._instance is not None:
+            raise Exception("You can't create more than one instance of AnimationController.")
+        else:
+            AnimationController._instance = self
         self.servos = []
 
+    @classmethod
+    def get_instance(cls):
+        if cls._instance is None:
+            cls._instance = AnimationController()
+        return cls._instance
 
-    def add_servo(self, servo):
+    def register_servo(self, servo):
         """Add a servo to the list."""
         self.servos.append(servo)
 
@@ -109,6 +129,8 @@ class AnimationController():
 
     def wait(self):
         """Wait for all the servos to finish."""
+
+        # TODO: we probably don't need this, as it's blocking.
         while not self.all_done():
             self.update()
             time.sleep(0.01)
@@ -116,6 +138,8 @@ class AnimationController():
 
     def go_home(self):
         """Send all the servos home."""
+
+        # TODO: This is terrible boilerplate. Fix.
         for servo in self.servos:
             servo.ease_to(90, 4000, easing.linear)
         self.wait()
@@ -134,11 +158,8 @@ class AnimationController():
 
     def queue_angle(self, angle, duration, easing_function):
         """Queue up angles to move sequentially."""
+
+        # TODO: This doesn't look right.
         for servo in self.servos:
             servo.queue_angle(angle, duration, easing_function)
 
-
-    def queue_wait(self):
-        """Wait for all the servos to finish."""
-        for servo in self.servos:
-            servo.queue_wait()
