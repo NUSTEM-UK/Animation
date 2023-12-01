@@ -16,6 +16,7 @@ class EasedServo(Servo):
         """
         super().__init__(pin)
         self.enable()
+        # TODO: Replace this with calls to the superclass angle property
         self.angle = angle
         self.value(angle)
         # Are we using underscores to indicate private variables?
@@ -45,11 +46,13 @@ class EasedServo(Servo):
             + " easing."
         )
 
+
     def value(self, angle):
         """Set the servo angle.
 
         Need to override the superclass method to update the angle property."""
 
+        # TODO: This shouldn't be necessary; the superclass must know its angle
         self.angle = angle
 
         # Uncomment this line to spew diagnostics to the console
@@ -81,3 +84,67 @@ class EasedServo(Servo):
             self.angle = self._target_angle
             # We're done!
             self.isMoving = False
+
+
+class AnimationController():
+    """Class to manage a collection of EasedServo objects."""
+
+    def __init__(self):
+        """Basic constructor. Creates an empty list of servos."""
+        self.servos = []
+
+
+    def add_servo(self, servo):
+        """Add a servo to the list."""
+        self.servos.append(servo)
+
+
+    def update(self):
+        """Update all the servos."""
+        for servo in self.servos:
+            servo.update()
+
+
+    def all_done(self):
+        """Check if all the servos are done."""
+        for servo in self.servos:
+            if servo.isMoving:
+                return False
+        return True
+
+
+    def wait(self):
+        """Wait for all the servos to finish."""
+        while not self.all_done():
+            self.update()
+            time.sleep(0.01)
+
+
+    def go_home(self):
+        """Send all the servos home."""
+        for servo in self.servos:
+            servo.ease_to(90, 4000, easing.linear)
+        self.wait()
+
+
+    def detach_servos(self):
+        """Detach all the servos."""
+        for servo in self.servos:
+            servo.detach_servo()
+
+
+    def queue_wait_for(self, other_servo):
+        """Wait for another servo to finish."""
+        pass  # TODO: Implement synchronization with another servo
+
+
+    def queue_angle(self, angle, duration, easing_function):
+        """Queue up angles to move sequentially."""
+        for servo in self.servos:
+            servo.queue_angle(angle, duration, easing_function)
+
+
+    def queue_wait(self):
+        """Wait for all the servos to finish."""
+        for servo in self.servos:
+            servo.queue_wait()

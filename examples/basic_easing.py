@@ -19,6 +19,7 @@ print("Move to 0")
 my_servo.value(0)
 time.sleep_ms(1000)
 
+print ("Now testing eased movement")
 print("ease in-out movement")
 my_servo.ease_to(-90, 2000, easing.easeInOutCubic)
 
@@ -44,7 +45,7 @@ while my_servo.isMoving:
 
 time.sleep_ms(1000)
 print("return home")
-my_servo.ease_to(0, 500, easing.easeInOutCubic)
+my_servo.ease_to(0, 500, easing.easeInOutExpo)
 while my_servo.isMoving:
     my_servo.update()
     time.sleep(0.01)
