@@ -16,7 +16,7 @@ class EasedServo(Servo):
         """
         super().__init__(pin)
         self.enable()
-        # TODO: Replace this with calls to the superclass angle property
+
         self.angle = angle
         self.value(angle)
         # Are we using underscores to indicate private variables?
@@ -39,9 +39,14 @@ class EasedServo(Servo):
     def value(self, angle):
         """Set the servo angle.
 
-        Need to override the superclass method to update the angle property."""
+        Need to override the superclass method to update the angle property.
+        We could access the superclass' value property, but wrapping
+        it in a method seems neater, oddly. Comments welcome.
 
-        # TODO: This shouldn't be necessary; the superclass must know its angle
+        We need to capture the angle here, because otherwise the EasedServo
+        object loses track of where it is. Which matters for the next move.
+        """
+
         self.angle = angle
 
         # Uncomment this line to spew diagnostics to the console
