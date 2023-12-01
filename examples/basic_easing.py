@@ -4,18 +4,18 @@ import time
 # my_servo = EasedServo(2)
 my_servo = EasedServo(servo2040.SERVO_1)
 
-print ("Testing servo movement")
-print ("Standard movement")
+print("Testing servo movement")
+print("Standard movement")
 
-print ("Move to -90")
+print("Move to -90")
 my_servo.value(-90)
 time.sleep_ms(1000)
 
-print ("Move to 90")
+print("Move to 90")
 my_servo.value(90)
 time.sleep_ms(1000)
 
-print ("Move to 0")
+print("Move to 0")
 my_servo.value(0)
 time.sleep_ms(1000)
 
@@ -50,4 +50,3 @@ while my_servo.isMoving:
     time.sleep(0.01)
 
 print("Done!")
-
