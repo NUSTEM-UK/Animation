@@ -8,7 +8,7 @@ class EasedServo(Servo):
     # TODO: @property and @setter decorators work in Micropython now, I think?
 
 
-    def __init__(self, pin, angle=090):
+    def __init__(self, pin, angle=90):
         """Basic constructor. Creates a Servo object and sets the angle to the given value, defaulting to 0.
 
         We're assuming that servos go -90/+90 in micropython land.
@@ -34,16 +34,10 @@ class EasedServo(Servo):
         self._duration = duration
         self.isMoving = True
         print(
-            ">>> Starting move from: "
-            + str(self._start_angle)
-            + " to: "
-            + str(angle)
-            + " in "
-            + str(duration)
-            + "ms"
-            + " using "
-            + easing_function.__name__
-            + " easing."
+            ">>> Starting move from: " + str(self._start_angle)
+            + " to: " + str(angle)
+            + " in " + str(duration) + "ms"
+            + " using " + easing_function.__name__ + " easing."
         )
 
 
