@@ -33,12 +33,7 @@ class EasedServo(Servo):
         self._base_time = time.ticks_ms()
         self._duration = duration
         self.isMoving = True
-        print(
-            ">>> Starting move from: " + str(self._start_angle)
-            + " to: " + str(angle)
-            + " in " + str(duration) + "ms"
-            + " using " + easing_function.__name__ + " easing."
-        )
+        print(f'>>> Starting move from: {self._start_angle} to: {angle} in {duration} ms using {easing_function.__name__} easing.')
 
 
     def value(self, angle):
