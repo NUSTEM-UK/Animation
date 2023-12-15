@@ -23,12 +23,12 @@ class QueueServo(EasedServo):
                 time.sleep(0.01)
             time.sleep_ms(300)
 
-        #Go to home after all queue servo execution    
+        #Go to home after all queue servo execution
         self.go_home()
 
         # Detach the Servo
         self.detach_servo()
-            
+
 
     def flush_queue(self):
         self._queue.clear()

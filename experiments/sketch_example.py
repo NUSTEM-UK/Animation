@@ -1,4 +1,4 @@
-import object_sketch
+from object_sketch import EasedServo, easing, time, servo2040
 
 # my_servo = EasedServo(2)
 my_servo = EasedServo(servo2040.SERVO_1)

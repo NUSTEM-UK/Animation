@@ -1,6 +1,17 @@
 # Python Easing Functions
 # https://gist.github.com/robweychert/7efa6a5f762207245646b16f29dd6671
 
+# A fairly complete set of easing functions in Python. By passing
+# a time value between 0 and 1 to any of these functions, you will
+# get a value between 0 and 1 back.
+# In principle, you could write your own transformation function,
+# and pass that into any eased movement call. Which we think means
+# you can write custom animation styles. Which may or may not be
+# useful at some point in the future.
+
+# In the meantime, all the standard easing interpolations are here.
+
+
 import math
 
 
