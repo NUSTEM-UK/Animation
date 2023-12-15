@@ -15,19 +15,21 @@ class QueueServo(EasedServo):
         self.angle_queue.append((angle, duration, easing_function)) # Adding Eased Servo Paramenters to angle_queue
 
     def process_queue(self):
-        while self.angle_queue:
-            angle, duration, easing_function = self.angle_queue.popleft()  # Using popleft() to remove from the left end
-            self.ease_to(angle, duration, easing_function)
-            while self._isMoving:
-                self.update()
-                time.sleep(0.01)
-            time.sleep_ms(300)
-
-        #Go to home after all queue servo execution
-        self.go_home()
+        if self._isMoving == True:
+            while self.angle_queue:
+                angle, duration, easing_function = self.angle_queue.popleft()  # Using popleft() to remove from the left end
+                self.ease_to(angle, duration, easing_function)
+                while self._isMoving:
+                    self.update()
+                    time.sleep(0.01)
+                time.sleep_ms(300)
+            else:
+                if self.angle!=90:
+                    self.go_home() #Go to home after all queue servo execution
 
         # Detach the Servo
         self.detach_servo()
+
 
 
     def flush_queue(self):
@@ -39,18 +41,20 @@ class QueueServo(EasedServo):
     def resume_queue(self):
         self._isMoving = True
 
-    def queue_wait_for(self, other_servo):
-        pass  # TODO: Implement synchronization with another servo
+    # def queue_wait_for(self, other_servo):
+    #     pass  # TODO: Implement synchronization with another servo
 
     def go_home(self):
         self.ease_to(90,4000,easing.linear)
         while self._isMoving:
                 self.update()
                 time.sleep(0.01)
+        print("Reached Home")
         pass
 
     def detach_servo(self):
-        # TODO: Implement detaching the servo
+        self._servo.disable()
+        print("Servo Detached")
         pass
 
 
@@ -60,7 +64,7 @@ if __name__ == '__main__':
 
     queue_servo = QueueServo(servo2040.SERVO_1)
     queue_servo.queue_angle(-90, 4000, easing.linear)
-    queue_servo.queue_angle(90, 4000, easing.easeOutExpo)
-    queue_servo.queue_angle(-90, 4000, easing.easeInExpo)
+    # queue_servo.queue_angle(90, 4000, easing.easeOutExpo)
+    # queue_servo.queue_angle(-90, 4000, easing.easeInExpo)
     queue_servo.process_queue()
     print("Done!")
