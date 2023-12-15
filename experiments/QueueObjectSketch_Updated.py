@@ -12,7 +12,7 @@ class QueueServo(EasedServo):
 
     def queue_angle(self, angle, duration, easing_function):
         """Queue up angles to move sequentially."""
-        self.angle_queue.append((angle, duration, easing_function)) # Adding Eased Servo Paramenters to anle_queue
+        self.angle_queue.append((angle, duration, easing_function)) # Adding Eased Servo Paramenters to angle_queue
 
     def process_queue(self):
         while self.angle_queue:
@@ -21,7 +21,7 @@ class QueueServo(EasedServo):
             while self._isMoving:
                 self.update()
                 time.sleep(0.01)
-            time.sleep_ms(200)
+            time.sleep_ms(300)
 
         #Go to home after all queue servo execution    
         self.go_home()
