@@ -1,8 +1,7 @@
 from servo import Servo, servo2040
 import easingfunctions as easing
 import time
-from object_sketch import *
-import time
+from object_sketch import EasedServo
 from collections import deque
 
 class QueueServo(EasedServo):
@@ -15,6 +14,7 @@ class QueueServo(EasedServo):
         self.angle_queue.append((angle, duration, easing_function)) # Adding Eased Servo Paramenters to angle_queue
 
     def process_queue(self):
+<<<<<<< Updated upstream
         if self._isMoving == True:
             while self.angle_queue:
                 angle, duration, easing_function = self.angle_queue.popleft()  # Using popleft() to remove from the left end
@@ -26,11 +26,26 @@ class QueueServo(EasedServo):
             else:
                 if self.angle!=90:
                     self.go_home() #Go to home after all queue servo execution
+=======
+        while self.angle_queue:
+            angle, duration, easing_function = self.angle_queue.popleft()  # Using popleft() to remove from the left end
+            self.ease_to(angle, duration, easing_function)
+            while self._isMoving:
+                self.update()
+                time.sleep(0.01)
+            time.sleep_ms(200)
+
+        #Go to home after all queue servo execution
+        self.go_home()
+>>>>>>> Stashed changes
 
         # Detach the Servo
         self.detach_servo()
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
     def flush_queue(self):
         self._queue.clear()
