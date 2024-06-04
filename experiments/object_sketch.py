@@ -12,14 +12,16 @@ class EasedServo:
     # TODO: This should probably inherit from Servo rather than wrap it, but I'm rusty on Python syntax.
     # TODO: @property and @setter decorators work in Micropython now, I think? Would be neater.
 
-    def __init__(self, pin, angle=90):
+    def __init__(self, pin, angle=90, min_angle=-90, max_angle=90):
         """Basic constructor. Creates a Servo object and sets the angle to the given value, defaulting to 90."""
         self._servo = Servo(pin)
         self.angle = angle
         self._servo.value(angle)
         self._easing_function = easing.linear
         self._isMoving=True
-    
+        self._min_angle = min_angle
+        self._max_angle = max_angle
+
 
     def ease_to(self, angle, duration, easing_function=easing.linear):
         """Sets the target angle and duration, and receives a function to use for easing."""
