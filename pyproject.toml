@@ -1,0 +1,18 @@
+[project]
+name = "animation"
+version = "0.1.0"
+description = "Servo animation library, with eased movement and ssequence queues."
+readme = "README.md"
+authors = [{name = "Jonathan Sanderson", email = "jonathan.sanderson@northumbria.ac.uk"}]
+license = "MIT"
+classifiers = [
+    "Development Status :: 3 - Alpha"
+]
+dependencies = [
+    "servo"
+]
+
+[project.urls]
+Homepage = "https://github.com/nustem-uk/animation"
+Changelog = "https://github.com/nustem-uk/animation/releases"
+Issues = "https://github.com/nustem-uk/animations/issues"
