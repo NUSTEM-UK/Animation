@@ -60,6 +60,11 @@ class EasedServo(Servo):
         super().value(angle)
 
 
+    def get_current_angle(self):
+        """Get the current angular position of the servo."""
+        return self.angle
+
+
     def update(self):
         """Handle servo angle updates."""
         # How far through the movement duration are we?
